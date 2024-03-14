@@ -2,6 +2,7 @@ import clsx from "clsx";
 import { TypographyProps, variantMapping } from "./index.types";
 import React from "react";
 import { cva } from "class-variance-authority";
+import cn from "../../utils/common";
 
 const typography = cva("", {
   variants: {
@@ -97,7 +98,10 @@ const Typography: React.FC<TypographyProps> = (props) => {
         color,
         align,
         font,
-        className: `${customClassName} ${className} `,
+        className: cn(
+          customClassName ?? customClassName,
+          className ?? className
+        ),
       })}
       {...rest}
     >

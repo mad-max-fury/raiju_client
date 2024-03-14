@@ -12,6 +12,7 @@ const router = createBrowserRouter(
       {authRoutes.map((el) => (
         <Route {...el} />
       ))}
+
       {dashboardRoutes.map((el) =>
         el.children.length > 0 ? (
           <Route path={el.path} element={el.element}>
@@ -27,6 +28,7 @@ const router = createBrowserRouter(
           <Route element={el.element} path={el.path} />
         )
       )}
+
       <Route path="*" element={<div>Page not found</div>} />
     </>
   )

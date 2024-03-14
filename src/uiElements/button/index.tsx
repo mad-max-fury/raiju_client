@@ -10,7 +10,7 @@ import cn from "../../utils/common";
 const button = cva("", {
   variants: {
     variant: {
-      filled: "text-secondary-100",
+      filled: "text-white",
       outlined: "!bg-white border",
       transparent: "!bg-transparent border",
       text: "!bg-transparent",
@@ -21,7 +21,7 @@ const button = cva("", {
       "medium-with-icon": "px-8 py-3.5 pl-5",
     },
     color: {
-      primary: "bg-primary-main",
+      primary: " bg-tertiary-950",
       gray: "bg-gray-3 ",
       "gray-1": "bg-gray-1 ",
       secondary:
