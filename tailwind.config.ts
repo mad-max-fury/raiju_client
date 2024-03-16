@@ -19,12 +19,12 @@ const config = {
       },
       fontSize: {
         // Header element styles
-        "h-1": ["3.5rem", { lineHeight: "110%", fontWeight: 700 }],
-        "h-2": ["3rem", { lineHeight: "110%", fontWeight: 700 }],
-        "h-3": ["2.5rem", { lineHeight: "110%", fontWeight: 700 }],
-        "h-4": ["2rem", { lineHeight: "110%", fontWeight: 700 }],
-        "h-5": ["1.5rem", { lineHeight: "110%", fontWeight: 700 }],
-        "h-6": ["1.25rem", { lineHeight: "110%", fontWeight: 600 }],
+        "h-1": ["3.25rem", { lineHeight: "110%", fontWeight: 600 }],
+        "h-2": ["2.75rem", { lineHeight: "110%", fontWeight: 600 }],
+        "h-3": ["2.25rem", { lineHeight: "110%", fontWeight: 600 }],
+        "h-4": ["1.75rem", { lineHeight: "110%", fontWeight: 600 }],
+        "h-5": ["1.25rem", { lineHeight: "110%", fontWeight: 600 }],
+        "h-6": ["1rem", { lineHeight: "110%", fontWeight: 600 }],
 
         // Body variant styles - [Large, Medium, Regular, Small]
         "body-l": ["1.25rem", { lineHeight: "140%", fontWeight: 400 }],
@@ -55,7 +55,9 @@ const config = {
           "950": "var(--tet-950)",
         },
         gray: {
+          "1": "var(--gray-1)",
           "500": "var(--gray-500)",
+          "600": "var(--gray-600)",
           "200": "var(--gray-200)",
         },
         "white-lilac": {

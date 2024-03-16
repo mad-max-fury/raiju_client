@@ -1,7 +1,6 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { ITooltip, Tooltip as ReactTooltip } from 'react-tooltip';
+import { ITooltip, Tooltip as ReactTooltip } from "react-tooltip";
 
 const Tooltip = (props: ITooltip) => {
   return (

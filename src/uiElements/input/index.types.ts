@@ -1,5 +1,5 @@
-import { LegacyRef } from 'react';
-import { UseFormRegister, FieldValues, Path } from 'react-hook-form';
+import { LegacyRef } from "react";
+import { UseFormRegister, FieldValues, Path } from "react-hook-form";
 
 export interface InputProps<IFormValues extends FieldValues>
   extends React.InputHTMLAttributes<HTMLInputElement> {
@@ -14,4 +14,6 @@ export interface InputProps<IFormValues extends FieldValues>
   required?: boolean;
   customClassName?: string;
   ref?: LegacyRef<HTMLInputElement>;
+  icon1?: React.ReactElement;
+  icon2?: React.ReactElement;
 }
