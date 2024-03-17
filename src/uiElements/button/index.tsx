@@ -18,6 +18,7 @@ const button = cva("", {
     size: {
       large: "py-5 px-12",
       medium: "px-8 py-3.5",
+      sm: "px-6 py-2.5",
       "medium-with-icon": "px-8 py-3.5 pl-5",
     },
     color: {

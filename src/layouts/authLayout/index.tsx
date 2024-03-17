@@ -26,7 +26,7 @@ const AuthLayout = ({
   footerText,
 }: Props) => {
   return (
-    <main className="flex w-screen border">
+    <main className="flex w-full">
       <aside className="w-full border-r max-w-[800px] items-center border-solid border-border  sticky  left-0 top-0 h-screen  flex-col hidden bg-white/95 overflow-hidden lg:flex">
         <div className={" h-[50px]  px-6 w-4/5 pt-6 "}>
           <img

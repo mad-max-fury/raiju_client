@@ -42,6 +42,7 @@ const config = {
       colors: {
         primary: "var(--primary)",
         border: "var(--border-color)",
+        secondary: "var(--secondary)",
         tertiary: {
           "50": "var(--tet-50)",
           "100": "var(--tet-100)",

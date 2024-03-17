@@ -18,7 +18,14 @@ const dashboardRoutes = [
   {
     path: "/dashboard",
     element: <DashboardLayout />,
-    children: [{ element: <Home />, index: true, path: "" }],
+    children: [
+      { element: <Home />, index: true, path: "" },
+      { element: <Home />, index: true, path: "/dashboard/funds_management" },
+      { element: <Home />, index: true, path: "/dashboard/transactions" },
+      { element: <Home />, index: true, path: "/dashboard/analytics" },
+      { element: <Home />, index: true, path: "/dashboard/profile" },
+      { element: <Home />, index: true, path: "/dashboard/settings" },
+    ],
   },
 ];
 

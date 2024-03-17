@@ -12,6 +12,8 @@
     /*border*/
     --border-color: #33333329;
 
+    --secondary: #b1b0b3;
+
     /*Tetiary Colors*/
     --tet-50: hsl(0, 0%, 96%);
     --tet-100: hsl(0, 0%, 91%);

@@ -1,15 +1,18 @@
-import { useState } from "react";
-import { Outlet, useLocation } from "react-router-dom";
+import { Outlet } from "react-router-dom";
+import SideBar from "./components/sideBar";
+import TopNav from "./components/topNav";
 
 const DashboardLayout = () => {
-  const loc = useLocation();
-  const secHeading = loc.pathname.split("/")[2];
-  const page = secHeading === undefined ? "home" : secHeading;
-
   return (
-    <div className="w-full">
-      <main className="mt-16 px-[1.5625rem] bg-[#F9F9F9] min-h-[calc(100dvh-4rem)]">
-        <Outlet />
+    <div className="w-full flex">
+      <div className="lg:block hidden">
+        <SideBar />
+      </div>
+      <main className="  bg-[#F7F7F7] min-h-[calc(100dvh)] w-full">
+        <TopNav />
+        <div className="w-full h-fit overflow-x-hidden px-[1.5625rem]">
+          <Outlet />
+        </div>
       </main>
     </div>
   );
