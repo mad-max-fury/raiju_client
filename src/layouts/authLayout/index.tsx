@@ -35,9 +35,13 @@ const AuthLayout = ({
             className="h-[44px] w-[118px]"
           />
         </div>
-        <div className="flex flex-col my-auto items-center justify-center w-full px-6">
-          <picture className="w-4/5 max-h-[560px] aspect-video">
-            <img src={authImageBanner} alt=" banner" />
+        <div className="flex flex-col my-auto items-center justify-center w-4/5">
+          <picture className="w-[90%] aspect-video">
+            <img
+              src={authImageBanner}
+              alt=" banner"
+              className="h-full w-full object-contain"
+            />
           </picture>
           <Typography variant="h4" color="gray-1">
             {heading}

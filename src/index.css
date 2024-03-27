@@ -48,6 +48,9 @@
     --warning: "#E2B93B";
     --error: "#EB5757";
   }
+  body {
+    font-family: "Poppins", sans-serif;
+  }
 }
 
 @layer utilities {

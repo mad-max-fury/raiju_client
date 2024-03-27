@@ -11,7 +11,7 @@ import { Button } from "../../../uiElements/button";
 const TopNav = () => {
   const [show, setShow] = useState(false);
   return (
-    <nav className="h-16 bg-white lg:bg-transparent lg:mt-9 w-full  flex justify-between items-center px-6">
+    <nav className="h-[100px] bg-white  w-full  flex justify-between items-center px-6 sticky top-0 ">
       <div className="flex items-center gap-2">
         <button
           onClick={() => setShow(!show)}
@@ -58,7 +58,7 @@ const UserProfileDropdown = () => {
     <div className="relative ">
       <button
         onClick={() => setShowDropDown(!showDropDown)}
-        onBlur={() => setShowDropDown(!showDropDown)}
+        onBlur={() => setShowDropDown(false)}
         className="w-fit flex gap-1"
       >
         <div className="w-[40px] h-[40px] rounded-full bg-gray-400"></div>

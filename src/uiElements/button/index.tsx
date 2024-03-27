@@ -11,7 +11,7 @@ const button = cva("", {
   variants: {
     variant: {
       filled: "text-white",
-      outlined: "!bg-white border",
+      outlined: "!bg-white border border-border",
       transparent: "!bg-transparent border",
       text: "!bg-transparent",
     },

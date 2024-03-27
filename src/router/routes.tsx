@@ -2,6 +2,7 @@ import DashboardLayout from "../layouts/dashboardLayout";
 import Login from "../pages/auth/login";
 import Register from "../pages/auth/register";
 import Home from "../pages/dashboard/home";
+import TransactionHistory from "../pages/dashboard/transactions";
 
 const authRoutes = [
   {
@@ -21,7 +22,11 @@ const dashboardRoutes = [
     children: [
       { element: <Home />, index: true, path: "" },
       { element: <Home />, index: true, path: "/dashboard/funds_management" },
-      { element: <Home />, index: true, path: "/dashboard/transactions" },
+      {
+        element: <TransactionHistory />,
+        index: false,
+        path: "/dashboard/transactions",
+      },
       { element: <Home />, index: true, path: "/dashboard/analytics" },
       { element: <Home />, index: true, path: "/dashboard/profile" },
       { element: <Home />, index: true, path: "/dashboard/settings" },

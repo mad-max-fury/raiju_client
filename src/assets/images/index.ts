@@ -1,3 +1,10 @@
 export { default as authImageBanner } from "./authBanner.png";
 export { default as logoWithText } from "./raiju_logo.png";
 export { default as logoSmall } from "./raiju_logo_small.png";
+export { default as serviceDataIcon } from "./serviceDataIcon.png";
+export { default as serviceAirtimeIcon } from "./serviceAirtimeIcon.png";
+export { default as serviceBettingIcon } from "./serviceBettingIcon.png";
+export { default as serviceUtilityIcon } from "./serviceUtilityIcon.png";
+export { default as serviceInsuranceIcon } from "./serviceInsuranceIcon.png";
+export { default as walletIcon } from "./walletIcon.png";
+export { default as walletNoMarkIcon } from "./walletNoMarkIcon.png";

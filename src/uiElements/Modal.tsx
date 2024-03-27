@@ -7,9 +7,10 @@ type IModal = {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   children: ReactNode;
   size?: "sm" | "lg";
+  customClassName?: string;
 };
 
-const Modal = ({ open, setOpen, size, children }: IModal) => {
+const Modal = ({ open, setOpen, size, children, customClassName }: IModal) => {
   return (
     <Transition.Root show={open} as={Fragment}>
       <Dialog as="div" className="relative z-50" onClose={setOpen}>
@@ -22,7 +23,7 @@ const Modal = ({ open, setOpen, size, children }: IModal) => {
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+          <div className="fixed inset-0 bg-black/60 transition-opacity" />
         </Transition.Child>
 
         <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
@@ -39,7 +40,8 @@ const Modal = ({ open, setOpen, size, children }: IModal) => {
               <Dialog.Panel
                 className={cn(
                   size === "sm" ? "max-w-sm" : "max-w-lg",
-                  "relative transform overflow-hidden rounded-xl bg-white p-8 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:p-6"
+                  "relative transform rounded-xl bg-white p-8 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:p-6",
+                  customClassName
                 )}
               >
                 {children}

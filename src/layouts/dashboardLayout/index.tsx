@@ -4,11 +4,11 @@ import TopNav from "./components/topNav";
 
 const DashboardLayout = () => {
   return (
-    <div className="w-full flex">
-      <div className="lg:block hidden">
+    <div className="w-full flex isolate">
+      <div className="lg:block hidden sticky top-0 left-0 h-screen z-[1]">
         <SideBar />
       </div>
-      <main className="  bg-[#F7F7F7] min-h-[calc(100dvh)] w-full">
+      <main className="bg-[#F7F7F7] min-h-[calc(100dvh)] w-full z-[-1]">
         <TopNav />
         <div className="w-full h-fit overflow-x-hidden px-[1.5625rem]">
           <Outlet />

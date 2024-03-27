@@ -52,10 +52,12 @@ const SideBar = () => {
       } bg-white h-screen  pt-4 relative duration-300`}
     >
       <div className="relative p-5">
-        <img
-          src={!open ? logoSmall : logoWithText}
-          className={`cursor-pointer  duration-500`}
-        />
+        <div className={!open ? "" : "w-[118px] h-[44px]"}>
+          <img
+            src={!open ? logoSmall : logoWithText}
+            className={`cursor-pointer h-full w-full object-contain  duration-500`}
+          />
+        </div>
 
         <button
           data-tooltip-id="EXPAND-BTN"
