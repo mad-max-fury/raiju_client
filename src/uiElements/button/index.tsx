@@ -44,78 +44,6 @@ const button = cva("", {
       black: "font-black",
     },
   },
-  compoundVariants: [
-    {
-      variant: ["outlined", "transparent"],
-      color: "primary",
-      class: "text-primary-main border-primary-main ",
-    },
-    {
-      variant: ["outlined", "transparent"],
-      color: "gray",
-      class: "text-gray-3 border-gray-3 ",
-    },
-    {
-      variant: ["outlined", "transparent"],
-      color: "success",
-      class: "text-success border-success ",
-    },
-    {
-      variant: ["outlined", "transparent"],
-      color: "error",
-      class: "text-error border-error ",
-    },
-    {
-      variant: ["outlined", "transparent"],
-      color: "secondary",
-      class: "text-primary-main border-secondary-main ",
-    },
-    {
-      variant: "text",
-      color: "primary",
-      class: "text-primary-main",
-    },
-    {
-      variant: "text",
-      color: "gray-1",
-      class: "text-gray-1",
-    },
-    {
-      variant: "text",
-      color: "gray",
-      class: "text-gray-3",
-    },
-    {
-      variant: "text",
-      color: "success",
-      class: "text-success",
-    },
-    {
-      variant: "text",
-      color: "error",
-      class: "text-error",
-    },
-    {
-      variant: "text",
-      color: "info",
-      class: "text-info",
-    },
-    {
-      variant: "text",
-      color: "secondary",
-      class: "text-primary-main",
-    },
-    {
-      variant: "filled",
-      color: "primary-light-100",
-      class: "text-primary-main",
-    },
-    {
-      variant: "text",
-      size: "large",
-      class: "!py-0 !px-0",
-    },
-  ],
 });
 
 // Button component
@@ -143,12 +71,12 @@ const Button: React.FC<ButtonProps> = (props) => {
         size,
         fontWeight,
         className: cn(
-          "flex items-center justify-center gap-4 whitespace-nowrap rounded-lg text-body-r transition-all duration-300 focus:ring-4 focus:ring-primary-light-200 focus-visible:outline-none disabled:cursor-not-allowed disabled:!border-gray-3 disabled:bg-gray-3 mmd:px-[3rem] mmd:py-[1.2rem]",
-          customClassName,
+          "flex items-center justify-center gap-4 whitespace-nowrap rounded-lg text-body-r transition-all duration-300 focus:ring-4 focus:ring-primary-light-200 focus-visible:outline-none disabled:cursor-not-allowed disabled:!border-gray-3 disabled:bg-gray-3",
           fit ? "w-fit" : "w-full",
           ["text", "outlined"].includes(variant)
             ? "disabled:!text-gray-3 disabled:[&>path]:stroke-gray-3"
-            : " disabled:!text-white"
+            : " disabled:!text-white",
+          customClassName
         ),
       })}
       type="button"

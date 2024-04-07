@@ -28,13 +28,13 @@ const TransactionOverview = ({
             <ArrowBehaviourIndicator remark={remark} percent={percentage} />
           </div>
         </div>
-        <span className="py-2 capitalize w-[88px] text-center border-border border-solid border rounded-md text-border">
-          {type}
+        <span className="h-[37px] flex items-center justify-center capitalize w-[88px] text-center  rounded-md  ring-solid ring-1 ring-[#DDDDDD] text-[#2e2e2e]/60">
+          <span>{type}</span>
         </span>
       </div>
       <hr />
       <div className="w-full pt-4 flex justify-between items-center">
-        <Typography variant={"h5"} color="gray-1">
+        <Typography variant={"h5"} customClassName="font-medium" color="gray-1">
           {formatCurrency(amount)}
         </Typography>
         <PercentBehaviourIndicator percent={percentage} />

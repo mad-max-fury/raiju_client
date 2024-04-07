@@ -11,7 +11,7 @@ import { Button } from "../../../uiElements/button";
 const TopNav = () => {
   const [show, setShow] = useState(false);
   return (
-    <nav className="h-[100px] bg-white  w-full  flex justify-between items-center px-6 sticky top-0 ">
+    <nav className="h-[100px] bg-white  w-full z-[800]  flex justify-between items-center px-6 sticky top-0 ">
       <div className="flex items-center gap-2">
         <button
           onClick={() => setShow(!show)}
@@ -59,14 +59,14 @@ const UserProfileDropdown = () => {
       <button
         onClick={() => setShowDropDown(!showDropDown)}
         onBlur={() => setShowDropDown(false)}
-        className="w-fit flex gap-1"
+        className="w-fit flex gap-1 justify-center"
       >
         <div className="w-[40px] h-[40px] rounded-full bg-gray-400"></div>
-        <div className=" mxs:hidden flex flex-col justify-center">
-          <Typography variant="h6" color="gray-1">
+        <div className=" mxs:hidden flex flex-col justify-center my-auto ">
+          <Typography variant="body-s" color="gray-1">
             Gabriel Wils
           </Typography>
-          <Typography variant={"caption-s"} color="gray-1">
+          <Typography variant={"caption-s"} customClassName="text-gray-400">
             userexample@gmail.com
           </Typography>
         </div>
@@ -88,7 +88,7 @@ const UserProfileDropdown = () => {
           </Typography>
         </Link>
         <Link
-          to="/dashboard/profile"
+          to="/dashboard/settings"
           className="px-6 py-2.5 hover:shadow-sm rounded hover:bg-gray-200"
           onClick={() => setShowDropDown(!showDropDown)}
         >

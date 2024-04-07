@@ -40,7 +40,7 @@ const Modal = ({ open, setOpen, size, children, customClassName }: IModal) => {
               <Dialog.Panel
                 className={cn(
                   size === "sm" ? "max-w-sm" : "max-w-lg",
-                  "relative transform rounded-xl bg-white p-8 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:p-6",
+                  "relative transform rounded-xl bg-white p-8 m-auto text-left shadow-xl transition-all sm:my-8 w-full sm:p-6",
                   customClassName
                 )}
               >

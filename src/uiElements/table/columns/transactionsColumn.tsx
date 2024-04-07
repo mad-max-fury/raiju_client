@@ -40,6 +40,19 @@ const columns: ColumnDef<Partial<ITransaction>>[] = [
     },
   },
   {
+    accessorKey: "createdat",
+    header: () => <div className="text-start sr-only"></div>,
+    cell: ({ row }) => {
+      const transaction = row.original;
+
+      return (
+        <div className="sr-ony w-0 h-0 overflow-hidden">
+          {transaction.createdat}
+        </div>
+      );
+    },
+  },
+  {
     accessorKey: "product",
     header: () => <div className="text-start">Product</div>,
     cell: ({ row }) => {
@@ -76,7 +89,6 @@ const columns: ColumnDef<Partial<ITransaction>>[] = [
       );
     },
   },
-
   {
     accessorKey: "beneficiary",
     header: () => <div className="text-start">Beneficiary</div>,

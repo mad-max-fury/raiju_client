@@ -1,9 +1,11 @@
+import { Link } from "react-router-dom";
 import { LockedIcon } from "../../../assets/svg";
 import UserIcon from "../../../assets/svg/userIcon";
 import AuthLayout from "../../../layouts/authLayout";
 import { Button } from "../../../uiElements/button";
 import { CheckBox } from "../../../uiElements/checkbox";
 import { Input } from "../../../uiElements/input";
+import { ApplicationRoutes } from "../../../utils/enums";
 
 const Login = () => {
   return (
@@ -16,7 +18,7 @@ const Login = () => {
       footerText="Don't have an account?"
       footerLinkText=" Sign Up"
     >
-      <div className=" flex flex-col gap-3">
+      <div className=" flex flex-col gap-3 mmd:px-6">
         <Input icon1={<UserIcon />} name="name" placeholder="Username" />
         <Input
           icon1={<LockedIcon />}
@@ -25,11 +27,11 @@ const Login = () => {
           type="password"
         />
         <CheckBox name="rememberMe" label="Remember me" />
-        <span className="mt-16">
+        <Link to={ApplicationRoutes.DASHBOARD_HOME} className="mt-16">
           <Button name="Submit" size="medium" value={"Login"} loading={false}>
             Login
           </Button>
-        </span>
+        </Link>
       </div>
     </AuthLayout>
   );

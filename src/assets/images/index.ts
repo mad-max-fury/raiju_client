@@ -8,3 +8,6 @@ export { default as serviceUtilityIcon } from "./serviceUtilityIcon.png";
 export { default as serviceInsuranceIcon } from "./serviceInsuranceIcon.png";
 export { default as walletIcon } from "./walletIcon.png";
 export { default as walletNoMarkIcon } from "./walletNoMarkIcon.png";
+export { default as funds1 } from "./funds1.png";
+export { default as funds2 } from "./funds2.png";
+export { default as funds3 } from "./funds3.png";

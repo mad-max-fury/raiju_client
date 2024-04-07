@@ -78,6 +78,9 @@ const config = {
         warning: "var(--warning)",
         error: "var(--error)",
       },
+      maxWidth: {
+        lg: "1096px",
+      },
       screens: {
         mxl: { max: "1279px" },
         // => @media (max-width: 1279px){...}

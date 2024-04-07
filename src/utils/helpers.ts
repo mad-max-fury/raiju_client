@@ -26,6 +26,7 @@ function lightenDarkenColor(col: string, amt: number) {
 
 export function formatCurrency(
   amount: number,
+  withTrailingZeros: boolean = false,
   currencySymbol: string = "₦",
   locale: string = "en-US"
 ): string {
@@ -33,7 +34,9 @@ export function formatCurrency(
     style: "currency",
     currency: "NGN", // Using "NGN" as currency code
   })}`;
-  return formatted.replace(/\.00$/, "").replace(/NGN/, "");
+  return withTrailingZeros
+    ? formatted.replace(/NGN/, "")
+    : formatted.replace(/\.00$/, "").replace(/NGN/, "");
 }
 
 export function reduceToSelectOptions(
@@ -58,4 +61,22 @@ export function generateColors() {
   const background = generateRandomHex();
   const color = lightenDarkenColor(background, 60); // Lighten background color for text
   return { background, color };
+}
+
+interface ObjectInterface {
+  [key: string]: any;
+}
+
+export function purifyArray(arr: ObjectInterface[]): ObjectInterface[] {
+  let dic: ObjectInterface = {};
+  for (let i = 0; i < arr.length; i++) {
+    const keys = Object.keys(arr[i]);
+    const id = arr[i][keys[0]];
+    if (dic[keys[0]] !== undefined) {
+      dic[id] = arr[i];
+    } else {
+      dic = { ...dic, [id]: arr[i] };
+    }
+  }
+  return Object.values(dic);
 }

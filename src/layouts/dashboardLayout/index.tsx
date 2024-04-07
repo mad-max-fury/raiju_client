@@ -10,7 +10,7 @@ const DashboardLayout = () => {
       </div>
       <main className="bg-[#F7F7F7] min-h-[calc(100dvh)] w-full z-[-1]">
         <TopNav />
-        <div className="w-full h-fit overflow-x-hidden px-[1.5625rem]">
+        <div className="w-full h-fit overflow-x-hidden mlg:px-[1.5625rem] max-w-[1096px] mx-auto">
           <Outlet />
         </div>
       </main>

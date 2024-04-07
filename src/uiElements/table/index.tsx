@@ -15,6 +15,7 @@ import Search from "./search";
 import { useState } from "react";
 import FilterBy from "./filterBy";
 import Pagination from "../Pagination";
+import { purifyArray } from "../../utils/helpers";
 interface TableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
@@ -24,7 +25,6 @@ interface TableProps<TData, TValue> {
   withSearch?: boolean;
   withPagination?: boolean;
 }
-
 export default function TableComp<TData, TValue>({
   data,
   columns,
@@ -36,13 +36,6 @@ export default function TableComp<TData, TValue>({
 }: TableProps<TData, TValue>) {
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [globalFilter, setGlobalFilter] = useState<string>("");
-  const [currentFilter, setCurrentFilter] = useState<
-    | {
-        id: string;
-        value: string;
-      }[]
-    | null
-  >();
 
   const table = useReactTable({
     data,
@@ -59,9 +52,9 @@ export default function TableComp<TData, TValue>({
     setGlobalFilter(query);
   };
   const handleFilterChange = (newFilter: { id: string; value: string }[]) => {
-    setCurrentFilter(newFilter);
-    setColumnFilters((prev) => [...prev, ...newFilter]);
-    console.log(newFilter);
+    const columnFiltersPurify = purifyArray([...columnFilters, ...newFilter]);
+    // @ts-expect-error
+    setColumnFilters(columnFiltersPurify);
   };
   return (
     <div className=" w-full overflow-x-auto my-6">
@@ -88,7 +81,12 @@ export default function TableComp<TData, TValue>({
             <Search onSearch={handleSearch} />
           </div>
           <div className="w-[40%]">
-            <FilterBy items={data} onFilterChange={handleFilterChange} />
+            <FilterBy
+              // @ts-expect-error
+              items={data}
+              currentFilter={columnFilters}
+              onFilterChange={handleFilterChange}
+            />
           </div>
         </div>
       )}
@@ -123,7 +121,9 @@ export default function TableComp<TData, TValue>({
               {row.getVisibleCells().map((cell) => (
                 <td
                   key={cell.id}
-                  className="py-4 first-of-type:px-4 last-of-type:px-4 pr-4"
+                  className={cn(
+                    "py-4 first-of-type:px-4 last-of-type:px-4 pr-4 "
+                  )}
                 >
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
                 </td>

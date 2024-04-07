@@ -10,17 +10,18 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <>
       {authRoutes.map((el) => (
-        <Route {...el} />
+        <Route {...el} key={el.path} />
       ))}
 
       {dashboardRoutes.map((el) =>
         el.children.length > 0 ? (
-          <Route path={el.path} element={el.element}>
+          <Route path={el.path} element={el.element} key={el.path}>
             {el.children.map((child) => (
               <Route
                 path={child.path}
                 element={child.element}
                 index={child.index}
+                key={child.path}
               />
             ))}
           </Route>

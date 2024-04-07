@@ -12,7 +12,7 @@ type Props = {};
 const WalletCard = (props: Props) => {
   const [showBalance, setShowBalance] = useState(false);
   return (
-    <div className=" w-[334px] h-fit flex flex-col justify-between  bg-[#1B1B1E] rounded-lg">
+    <div className=" w-[334px] h-[234px] flex flex-col justify-between  bg-[#1B1B1E] rounded-lg">
       <div className="w-full flex flex-col gap-12 p-4">
         <div className="w-full flex justify-between items-center">
           <div className="flex gap-2 items-center">

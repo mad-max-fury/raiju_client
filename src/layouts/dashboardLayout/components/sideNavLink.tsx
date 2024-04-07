@@ -9,31 +9,67 @@ type Props = {
   icon: React.ReactElement;
   isActive: boolean;
   isOpen: boolean;
+  isExternal: boolean;
 };
 
-const SideNavLink = ({ title, path, icon, isActive, isOpen }: Props) => {
+const SideNavLink = ({
+  title,
+  path,
+  icon,
+  isActive,
+  isOpen,
+  isExternal = false,
+}: Props) => {
   return (
-    <Link
-      to={path}
-      data-tooltip-id="SIDE-NAV-BTN-LINK"
-      data-tooltip-content={title}
-      className={cn(
-        " w-[90%] relative text-sm transition-all duration-400 ease-in-out font-normal after:content-[''] after:absolute after:w-[4px] after:left-0 after:top-0 rounded-r-md flex px-5 py-3 items-center gap-3 hover:bg-gray-50 after:transition-all after:duration-300 after:ease-in-out bg-transparent",
-        isActive
-          ? " bg-gray-200 text-gray-1 after:h-full after:bg-gray-1"
-          : " after:h-0 text-secondary"
+    <>
+      {isExternal ? (
+        <a
+          href={path}
+          target="_blank"
+          rel="noopener"
+          data-tooltip-id="SIDE-NAV-BTN-LINK"
+          data-tooltip-content={title}
+          className={cn(
+            " w-[90%] relative text-sm transition-all duration-400 ease-in-out font-normal after:content-[''] after:absolute after:w-[4px] after:left-0 after:top-0 rounded-r-md flex px-5 py-3 items-center gap-3 hover:bg-gray-50 after:transition-all after:duration-300 after:ease-in-out bg-transparent",
+            isActive
+              ? " bg-gray-200 text-gray-1 after:h-full after:bg-gray-1"
+              : " after:h-0 text-secondary"
+          )}
+        >
+          {icon}
+          <span
+            className={`${
+              !isOpen && "hidden"
+            } transition-all origin-left duration-200 whitespace-nowrap `}
+          >
+            {title}
+          </span>
+          <Tooltip id="SIDE-NAV-BTN-LINK" place="right" />
+        </a>
+      ) : (
+        <Link
+          to={path}
+          data-tooltip-id="SIDE-NAV-BTN-LINK"
+          data-tooltip-content={title}
+          className={cn(
+            " w-[90%] relative text-sm transition-all duration-400 ease-in-out font-normal after:content-[''] after:absolute after:w-[4px] after:left-0 after:top-0 rounded-r-md flex px-5 py-3 items-center gap-3 hover:bg-gray-50 after:transition-all after:duration-300 after:ease-in-out bg-transparent",
+            isActive
+              ? " bg-gray-200 text-gray-1 after:h-full after:bg-gray-1"
+              : " after:h-0 text-secondary"
+          )}
+        >
+          {icon}
+          <span
+            className={`${
+              !isOpen && "hidden"
+            } transition-all origin-left duration-200 whitespace-nowrap `}
+          >
+            {title}
+          </span>
+          <Tooltip id="SIDE-NAV-BTN-LINK" place="right" />
+        </Link>
       )}
-    >
-      {icon}
-      <span
-        className={`${
-          !isOpen && "hidden"
-        } transition-all origin-left duration-200 whitespace-nowrap `}
-      >
-        {title}
-      </span>
-      <Tooltip id="SIDE-NAV-BTN-LINK" place="right" />
-    </Link>
+    </>
   );
 };
 

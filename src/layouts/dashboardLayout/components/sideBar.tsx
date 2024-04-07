@@ -11,51 +11,74 @@ import UserIcon from "../../../assets/svg/userIcon";
 import CogIcon from "../../../assets/svg/cogIcon";
 import { FaAngleLeft } from "react-icons/fa";
 import { Tooltip } from "../../../uiElements/tooltip";
+import KeyIcon from "../../../assets/svg/keyIcon";
+import FilesIcon from "../../../assets/svg/filesIcon";
 const Menus = [
-  { title: "Dashboard", path: "/dashboard", icon: <DashboardIcon /> },
+  {
+    title: "Dashboard",
+    path: "/dashboard",
+    icon: <DashboardIcon />,
+    isExternal: false,
+  },
   {
     title: "Funds management",
     path: "/dashboard/funds_management",
     icon: <WalletIcon />,
+    isExternal: false,
   },
   {
     title: "Transactions",
     path: "/dashboard/transactions",
     icon: <TransfersIcon />,
+    isExternal: false,
   },
   {
     title: "Analytics",
     path: "/dashboard/analytics",
     icon: <BarsIcon />,
+    isExternal: false,
+  },
+  {
+    title: "Generate API",
+    path: "/dashboard/generate_api",
+    icon: <KeyIcon />,
+    isExternal: false,
+  },
+  {
+    title: "Documentation",
+    path: "https://docs.google.com/document/d/1M4Np_9_MC3dVz8Me-XiwxkE3FviP41cboIVaMgVOKTQ/edit",
+    icon: <FilesIcon />,
+    isExternal: true,
   },
   {
     title: "Profile",
     path: "/dashboard/profile",
     icon: <UserIcon fill="currentColor" />,
+    isExternal: false,
   },
   {
     title: "Settings",
     path: "/dashboard/settings",
     icon: <CogIcon />,
+    isExternal: false,
   },
 ];
 const SideBar = () => {
   const pathName = useLocation().pathname;
-  // const pSplit = pathName.split("/")[2];
-
+  const pSplit = pathName.split("/")[2];
   const [open, setOpen] = useState(true);
 
   return (
     <div
       className={` ${
         open ? "w-[240px]" : "w-20 "
-      } bg-white h-screen  pt-4 relative duration-300`}
+      } bg-white h-screen  pt-4 relative  duration-300`}
     >
       <div className="relative p-5">
-        <div className={!open ? "" : "w-[118px] h-[44px]"}>
+        <div className={!open ? "" : "w-[118px] h-[44px] transition-none"}>
           <img
             src={!open ? logoSmall : logoWithText}
-            className={`cursor-pointer h-full w-full object-contain  duration-500`}
+            className={`cursor-pointer h-full w-full object-contain transition-none `}
           />
         </div>
 
@@ -77,7 +100,11 @@ const SideBar = () => {
           <li key={index}>
             <SideNavLink
               {...menu}
-              isActive={pathName === menu.path}
+              isActive={
+                menu.path === "/dashboard"
+                  ? pSplit === "services" || pSplit === undefined
+                  : menu.path.includes(pSplit)
+              }
               isOpen={open}
             />
           </li>
@@ -89,7 +116,11 @@ const SideBar = () => {
           <li key={index}>
             <SideNavLink
               {...menu}
-              isActive={pathName === menu.path}
+              isActive={
+                menu.path === "/dashboard"
+                  ? pSplit === "services" || pSplit === undefined
+                  : menu.path.includes(pSplit)
+              }
               isOpen={open}
             />
           </li>

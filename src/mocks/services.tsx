@@ -14,7 +14,7 @@ export interface IService {
 export const servicesData: IService[] = [
   {
     id: 1,
-    name: "Utility",
+    name: "Electricity",
     icon: serviceUtilityIcon,
   },
   {

@@ -31,6 +31,8 @@ const InputComponent = <FV extends FieldValues>(
     hideErrorMsg,
     icon1,
     icon2,
+    variant = "default",
+    customInputStyles,
     ...rest
   } = props;
   const [showPassword, setShowPassword] = useState(false);
@@ -47,17 +49,19 @@ const InputComponent = <FV extends FieldValues>(
       {label && (
         <label
           className={cn(
-            "mb-4 w-fit text-body-s font-semibold first-letter:capitalize",
+            "first-letter:capitalize mb-2",
             errorMsg ? "text-error" : "text-gray-3"
           )}
           htmlFor={name}
         >
-          {label}
+          <Typography variant={"body-s"} color={"gray-2"}>
+            {label}
+          </Typography>
         </label>
       )}
       <div
         className={cn(
-          ` block h-14 w-full relative isolate rounded-xl border-none ring-1 ring-solid bg-gray-600 text-[0.875rem] font-semibold placeholder:font-normal placeholder:text-gray-4 autofill:bg-gray-600 transition-all ease-in-out duration-300`,
+          ` block h-14 w-full relative isolate  border-none ring-1 ring-solid  text-[0.875rem] font-semibold placeholder:font-normal placeholder:text-gray-400 autofill:bg-gray-600 transition-all ease-in-out duration-300`,
           rest.disabled &&
             "disabled:cursor-not-allowed disabled:bg-primary-light-100 disabled:font-semibold  disabled:text-gray-3",
           errorMsg
@@ -65,6 +69,9 @@ const InputComponent = <FV extends FieldValues>(
             : successMsg
             ? "border-success text-success focus:border-success focus:ring-green-600"
             : " text-primary-main ring-border focus-within:ring-green-600",
+          variant === "plain"
+            ? "h-[50px] rounded-lg font-normal placeholder:text-gray-100"
+            : "bg-gray-600 rounded-xl",
           customClassName
         )}
       >
@@ -75,8 +82,10 @@ const InputComponent = <FV extends FieldValues>(
         )}
         <input
           className={cn(
-            " appearance-none rounded-xl bg-transparent border  h-full w-full outline-none py-4 autofill:!bg-transparent ",
-            icon1 && "pl-12"
+            " appearance-none rounded-[inherit] bg-transparent border  h-full w-full outline-none py-4 autofill:!bg-transparent ",
+            icon1 && "pl-12",
+            variant === "plain" && "px-4",
+            customInputStyles
           )}
           id={name}
           placeholder={placeholder}

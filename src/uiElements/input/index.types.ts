@@ -16,4 +16,6 @@ export interface InputProps<IFormValues extends FieldValues>
   ref?: LegacyRef<HTMLInputElement>;
   icon1?: React.ReactElement;
   icon2?: React.ReactElement;
+  variant?: "default" | "plain";
+  customInputStyles?: string;
 }
