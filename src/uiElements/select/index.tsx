@@ -12,7 +12,7 @@ const styles: any = {
     fontStyle: "normal",
     fontWeight: 400,
     fontSize: "14px",
-    border: "1px solid #B1B0B3",
+    border: "1px solid #33333329",
     boxShadow: state.isFocused ? 0 : 0,
     "&:hover": {
       borderColor: state.isFocused ? "#B1B0B3" : 0,
@@ -68,7 +68,7 @@ const SelectComp: React.FC<SelectCompProps> = ({
     onChange && onChange(newValue);
   };
   return (
-    <div className="flex flex-col h-full gap-1 relative z-[inherit]">
+    <div className="flex flex-col h-full gap-2 relative z-[inherit]">
       <label htmlFor={id}>
         <Typography variant={"body-s"} color={"gray-2"}>
           {label}

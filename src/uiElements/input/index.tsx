@@ -95,7 +95,7 @@ const InputComponent = <FV extends FieldValues>(
           {...registerInput}
         />
         {icon2 ? (
-          <div className="h-fit top-1/2 -translate-y-1/2 right-4 border w-[40px]  absolute flex items-center ">
+          <div className="h-fit top-1/2 -translate-y-1/2 right-4  w-fit  absolute flex items-center ">
             {icon2}
           </div>
         ) : (

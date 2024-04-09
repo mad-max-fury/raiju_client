@@ -11,3 +11,4 @@ export { default as walletNoMarkIcon } from "./walletNoMarkIcon.png";
 export { default as funds1 } from "./funds1.png";
 export { default as funds2 } from "./funds2.png";
 export { default as funds3 } from "./funds3.png";
+export { default as emptyApi } from "./emptyApi.png";

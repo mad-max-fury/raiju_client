@@ -1,4 +1,6 @@
 import DashboardLayout from "../layouts/dashboardLayout";
+import ProtectedAuthLayout from "../layouts/dashboardLayout/protectAuthLayout";
+import ProtectedLayout from "../layouts/dashboardLayout/protectLayout";
 import Login from "../pages/auth/login";
 import Register from "../pages/auth/register";
 import Analytics from "../pages/dashboard/analytics";
@@ -14,18 +16,26 @@ import TransactionHistory from "../pages/dashboard/transactions";
 const authRoutes = [
   {
     path: "/",
-    element: <Login />,
+    element: (
+      <ProtectedAuthLayout>
+        <Login />
+      </ProtectedAuthLayout>
+    ),
   },
-  {
-    path: "/register",
-    element: <Register />,
-  },
+  // {
+  //   path: "/register",
+  //   element: <Register />,
+  // },
 ];
 
 const dashboardRoutes = [
   {
     path: "/dashboard",
-    element: <DashboardLayout />,
+    element: (
+      <ProtectedLayout>
+        <DashboardLayout />
+      </ProtectedLayout>
+    ),
     children: [
       { element: <Home />, index: true, path: "" },
       { element: <Services />, index: true, path: "/dashboard/services/:id" },
