@@ -46,7 +46,7 @@ const Menus = [
   },
   {
     title: "Documentation",
-    path: "https://docs.google.com/document/d/1M4Np_9_MC3dVz8Me-XiwxkE3FviP41cboIVaMgVOKTQ/edit",
+    path: "https://cloudhashiras-corp.gitbook.io/raiju-capital",
     icon: <FilesIcon />,
     isExternal: true,
   },

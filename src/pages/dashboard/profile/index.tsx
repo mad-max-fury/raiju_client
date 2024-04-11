@@ -4,15 +4,19 @@ import { Typography } from "../../../uiElements/typography";
 import ContactIcon from "../../../assets/svg/contactIcon";
 import HomeIcon from "../../../assets/svg/homeIcon";
 import { Button } from "../../../uiElements/button";
+import { useSelector } from "react-redux";
+import { getUser } from "../../../app/slices/authsplice";
 
 type Props = {};
 
 const UserProfile = (props: Props) => {
+  const user = useSelector(getUser);
+  console.log(user);
   return (
     <div className=" bg-white my-[30px] p-4 py-12 rounded-lg">
-      <div className="mb-6">
+      {/* <div className="mb-6">
         <div className="w-[160px] h-[160px] border-[#cacaca] border-solid border rounded-md flex justify-center flex-col items-center"></div>
-      </div>
+      </div> */}
       <div className="w-full h-fit  flex mmd:flex-wrap gap-8">
         <div className="flex flex-col gap-4 w-full">
           <header className="flex gap-2 items-center">
@@ -36,10 +40,10 @@ const UserProfile = (props: Props) => {
                 customClassName="text-end"
                 color="gray-1"
               >
-                Gabriel
+                {user?.primaryContactFirstName}
               </Typography>
             </div>
-            <div className="w-full flex gap-[93px] items-start">
+            {/* <div className="w-full flex gap-[93px] items-start">
               <Typography
                 variant="body-r"
                 customClassName=" w-[113px] text-[#8e8b8b]"
@@ -53,7 +57,7 @@ const UserProfile = (props: Props) => {
               >
                 Idanpha
               </Typography>
-            </div>{" "}
+            </div>{" "} */}
             <div className="w-full flex gap-[93px] items-start">
               <Typography
                 variant="body-r"
@@ -66,10 +70,10 @@ const UserProfile = (props: Props) => {
                 customClassName="text-end"
                 color="gray-1"
               >
-                Idoloagba
+                {user?.primaryContactLastName}
               </Typography>
             </div>{" "}
-            <div className="w-full flex gap-[93px] items-start">
+            {/* <div className="w-full flex gap-[93px] items-start">
               <Typography
                 variant="body-r"
                 customClassName=" w-[113px] text-[#8e8b8b]"
@@ -158,7 +162,7 @@ const UserProfile = (props: Props) => {
               >
                 International passport
               </Typography>
-            </div>
+            </div> */}
           </div>
         </div>
         <div className="w-full flex flex-col gap-6">
@@ -184,7 +188,7 @@ const UserProfile = (props: Props) => {
                   customClassName="text-start"
                   color="gray-1"
                 >
-                  Idoloagba@gmail.com
+                  {user?.primaryContactEmail}
                 </Typography>
               </div>
               <div className="w-full flex gap-[93px] items-start">
@@ -199,7 +203,7 @@ const UserProfile = (props: Props) => {
                   customClassName="text-start"
                   color="gray-1"
                 >
-                  No. 5 Alakirioba street opposite Doyen Academy, Lagos Nigeria
+                  {user?.businessAddress}
                 </Typography>
               </div>
               <div className="w-full flex items-start gap-[93px]">
@@ -214,7 +218,7 @@ const UserProfile = (props: Props) => {
                   customClassName="text-start"
                   color="gray-1"
                 >
-                  +234 9037703994
+                  {user?.primaryContactPhone}
                 </Typography>
               </div>
             </div>
@@ -241,7 +245,7 @@ const UserProfile = (props: Props) => {
                   customClassName="text-start"
                   color="gray-1"
                 >
-                  Raiju Capital Limited
+                  {user?.businessName}
                 </Typography>
               </div>
               <div className="w-full flex gap-[93px] items-start">
@@ -256,7 +260,7 @@ const UserProfile = (props: Props) => {
                   customClassName="text-start"
                   color="gray-1"
                 >
-                  No. 5 Alakirioba street opposite Doyen Academy, Lagos Nigeria
+                  {user?.businessAddress}
                 </Typography>
               </div>
               <div className="w-full flex items-start gap-[93px]">
@@ -271,7 +275,7 @@ const UserProfile = (props: Props) => {
                   customClassName="text-start"
                   color="gray-1"
                 >
-                  Capitalenergy@Raiju.ng
+                  {user?.primaryContactEmail}
                 </Typography>
               </div>
               <div className="w-full flex items-start gap-[93px]">
@@ -286,7 +290,7 @@ const UserProfile = (props: Props) => {
                   customClassName="text-start"
                   color="gray-1"
                 >
-                  +234 9037703994
+                  {user?.primaryContactPhone}
                 </Typography>
               </div>
             </div>

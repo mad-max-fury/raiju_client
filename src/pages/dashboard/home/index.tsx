@@ -16,8 +16,12 @@ import {
 } from "../../../app/slices/transactionSlice";
 
 const Home = () => {
-  const { data: walletBalances, isFetching: gettingWallet } =
-    useGetBalancesQuery();
+  const {
+    data: walletBalances,
+    isFetching: gettingWallet,
+    isSuccess,
+    refetch,
+  } = useGetBalancesQuery();
   const { data, isFetching, isError } = useGetRecentTransactionQuery(
     undefined,
     {
@@ -26,7 +30,7 @@ const Home = () => {
       refetchOnReconnect: true,
     }
   );
-  if (isFetching || gettingWallet) {
+  if (isFetching || (gettingWallet && !isSuccess)) {
     return (
       <div className="w-full h-screen">
         <PageLoader />
@@ -66,7 +70,10 @@ const Home = () => {
         <div className="w-full flex flex-col gap-4">
           <div className="w-full flex gap-4">
             <WalletCard balance={Number(walletBalance)} />
-            <CommissionOverviewCard balance={Number(commissionsBalance)} />
+            <CommissionOverviewCard
+              balance={Number(commissionsBalance)}
+              handleRefetch={() => refetch()}
+            />
           </div>
           <div className="flex w-full  flex-col max-w-[681px] bg-white p-4 rounded-lg">
             <Typography variant="h6" customClassName="pl-2" color="gray-1">

@@ -102,6 +102,16 @@ export const transactionApiSlice = apiSlice.injectEndpoints({
 
       keepUnusedDataFor: 5,
     }),
+    liquidateCommission: builder.mutation<
+      getBalancesResponse,
+      { liquidityAmount: number }
+    >({
+      query: ({ liquidityAmount }) => ({
+        url: `/merchant/liquidateCommission`,
+        method: "POST",
+        body: { liquidityAmount },
+      }),
+    }),
   }),
 });
 
@@ -109,4 +119,5 @@ export const {
   useGetRecentTransactionQuery,
   useGetRecentTransactionWithFiltersQuery,
   useGetBalancesQuery,
+  useLiquidateCommissionMutation,
 } = transactionApiSlice;

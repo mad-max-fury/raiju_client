@@ -118,8 +118,12 @@ const ViewTransactionDetails = ({
                   : "Pending",
             },
             {
-              name: "Wallet Billed",
-              value: transaction?.minimumpurchase,
+              name: "Disco Ref",
+              value: transaction?.disco_reference,
+            },
+            {
+              name: "Api Ref",
+              value: transaction?.merchantreference,
             },
             {
               name: "Merchant ID",

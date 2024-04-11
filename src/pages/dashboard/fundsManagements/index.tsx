@@ -8,14 +8,59 @@ import { formatCurrency } from "../../../utils/helpers";
 import { Button } from "../../../uiElements/button";
 import cn from "../../../utils/common";
 import { Input } from "../../../uiElements/input";
+import {
+  useGetBalancesQuery,
+  useLiquidateCommissionMutation,
+} from "../../../app/slices/transactionSlice";
+import PageLoader from "../../../uiElements/pageLoader";
+import { HttpStatus } from "../../../utils/errors";
+import toast from "react-hot-toast";
 
 const FundsManagement = () => {
   const [showLiquidateModal, setShowLiquidateModal] = useState(false);
+
+  const [showFundWallet, setShowFundWallet] = useState(false);
+
+  const {
+    data: walletBalances,
+    isFetching: gettingWallet,
+    isError,
+    refetch,
+  } = useGetBalancesQuery();
+  const commissionsBalance = walletBalances?.data?.wallet[0].commission_bal;
+  const [liquidate, { isLoading }] = useLiquidateCommissionMutation();
   const [selectedpercent, setSelectedPercent] = useState<number>(0);
-  const maxBalance = 21497965;
+  const [liquidateAmount, setLiquidateAmount] = useState(0);
+  const maxBalance = Number(commissionsBalance) ?? 0;
   const minBalance = 0.0;
   const withdrawAmountPercent = [25, 50, 75, 100];
-  const onLiquidate = () => {};
+  const onLiquidate = async () => {
+    if (liquidateAmount > 0 && liquidateAmount <= maxBalance) {
+      try {
+        const res = await liquidate({
+          liquidityAmount: liquidateAmount,
+        }).unwrap();
+        if (res.statusCode === HttpStatus.OK) {
+          refetch();
+          setLiquidateAmount(0);
+          setShowLiquidateModal(false);
+          setSelectedPercent(0);
+          return toast.success(res?.message ?? "Commission Liquidated");
+        }
+      } catch (error) {
+        if (!error) {
+          return toast.error("Something went wrong, check your network");
+        }
+        // @ts-expect-error
+        return toast.error(error?.data?.message ?? "unable to liquidate");
+      }
+    }
+    if (liquidateAmount <= minBalance) {
+      return toast.error("Amount too low");
+    }
+    return toast.error("Amount too high");
+  };
+
   const fundsTypes: FundWalletType[] = [
     {
       src: funds1,
@@ -30,7 +75,7 @@ const FundsManagement = () => {
         "Seamlessly fund your wallet from any financial platform using your wallet ID",
       alt: "fund Card",
       btnText: "Fund wallet ",
-      btnOnClick: () => {},
+      btnOnClick: () => setShowFundWallet(true),
     },
     {
       src: funds3,
@@ -41,12 +86,29 @@ const FundsManagement = () => {
       btnOnClick: () => {},
     },
   ];
+  if (gettingWallet) {
+    return (
+      <div className="w-full h-screen">
+        <PageLoader />
+      </div>
+    );
+  }
+  if (isError) {
+    return <div>Error...</div>;
+  }
+
   return (
     <>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 mt-[30px] gap-6 min-h-screen">
-        {fundsTypes.map((fundWalletType, index) => (
-          <FundTypeCard {...fundWalletType} key={index} />
-        ))}
+        {fundsTypes.map((fundWalletType, index) =>
+          index === 2 ? (
+            <div className={" pointer-events-none opacity-[.7] "} key={index}>
+              <FundTypeCard {...fundWalletType} />
+            </div>
+          ) : (
+            <FundTypeCard {...fundWalletType} key={index} />
+          )
+        )}
       </div>
       <Modal
         open={showLiquidateModal}
@@ -71,27 +133,34 @@ const FundsManagement = () => {
             />
             <div className="flex flex-col gap-2">
               <Input
-                name="name"
+                name="amounyt"
                 label="Enter  Liquidity Amount"
                 placeholder="0.00"
-                min={minBalance}
-                value={formatCurrency((maxBalance * selectedpercent) / 100)}
-                type={"text"}
+                max={maxBalance.toString()}
+                value={liquidateAmount}
+                onChange={(e) => {
+                  setLiquidateAmount(Number(e.target.value));
+                  return setSelectedPercent(0);
+                }}
+                type={"number"}
                 variant="plain"
               />
               <div className="w-fit flex gap-2 items-center self-end">
                 {withdrawAmountPercent.map((amount) => (
                   <Button
-                    variant={"outlined"}
+                    variant={
+                      selectedpercent === amount ||
+                      (liquidateAmount / maxBalance) * 100 === amount
+                        ? "filled"
+                        : "outlined"
+                    }
                     size={"sm"}
                     fit
-                    customClassName={cn(
-                      "p-2 !ring-0 text-xs text-[#2e2e2e]",
-                      selectedpercent === amount
-                        ? "!bg-[#2e2e2e] text-white"
-                        : ""
-                    )}
-                    onClick={() => setSelectedPercent(amount)}
+                    customClassName={cn("p-2 !ring-0 text-xs text-[#2e2e2e]")}
+                    onClick={() => {
+                      setLiquidateAmount((maxBalance * amount) / 100);
+                      return setSelectedPercent(amount);
+                    }}
                   >
                     <div className="">{amount}%</div>
                   </Button>
@@ -108,8 +177,56 @@ const FundsManagement = () => {
             >
               <Typography variant="body-r">Cancel</Typography>
             </Button>
-            <Button fit size={"sm"} onClick={onLiquidate}>
+            <Button fit size={"sm"} onClick={onLiquidate} loading={isLoading}>
               <Typography variant="body-r"> Liquidate</Typography>
+            </Button>
+          </div>
+        </div>
+      </Modal>
+      <Modal
+        open={showFundWallet}
+        setOpen={setShowFundWallet}
+        size="lg"
+        customClassName="max-w-[518px]"
+      >
+        <div className="h-fit">
+          <Typography variant="body-r" customClassName="mb-6">
+            <b>Fund Wallet</b>
+          </Typography>
+          <div className="grid grid-cols-1 gap-4 border-b pb-8 mb-4">
+            <Typography
+              variant="caption-s"
+              customClassName="text-center text-red-600 mt-3 "
+            >
+              <b>
+                Please make a transfer to the following account details to
+                credit your wallet account.
+              </b>
+            </Typography>
+            <Input
+              name="acc_bank"
+              label="Service Bank"
+              type={"text"}
+              variant="plain"
+              value={"Providus Bank"}
+              disabled
+            />
+            <div className="flex flex-col gap-2">
+              <Input
+                name="acc_number"
+                label="Account Number"
+                value={"8937592571"}
+                type={"text"}
+                variant="plain"
+              />
+            </div>
+          </div>
+          <div className="w-full flex justify-end items-center gap-3">
+            <Button
+              size={"sm"}
+              onClick={() => setShowFundWallet(!showFundWallet)}
+            >
+              <Typography variant="body-r">Close</Typography>
             </Button>
           </div>
         </div>
