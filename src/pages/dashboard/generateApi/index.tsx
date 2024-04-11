@@ -109,7 +109,7 @@ const GenerateApi = () => {
           size="lg"
           customClassName="max-w-[768px]"
         >
-          <div className="flex flex-col items-center justify-center py-8 w-full border border-red-600 border-solid">
+          <div className="flex flex-col items-center justify-center py-8 w-full">
             <Typography
               variant="h6"
               customClassName="text-center"

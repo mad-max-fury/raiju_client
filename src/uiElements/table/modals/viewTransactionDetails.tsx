@@ -79,9 +79,12 @@ const ViewTransactionDetails = ({
               value: formatCurrency(Number(transaction.amount ?? 0), true),
             },
             {
-              name: "Fee",
-              // @ts-expect-error
-              value: formatCurrency(Number(transaction?.fee ?? 0), true),
+              name: "Arrears",
+
+              value: formatCurrency(
+                Number(transaction?.customerarrears ?? 0),
+                true
+              ),
             },
           ].map((paymentDetails) => (
             <div className="w-full flex justify-between items-start">

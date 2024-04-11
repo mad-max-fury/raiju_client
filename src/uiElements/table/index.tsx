@@ -21,6 +21,7 @@ import { Button } from "../button";
 import { useReactToPrint } from "react-to-print";
 import { logoSmall } from "../../assets/images";
 import Modal from "../Modal";
+import EmptyDataTable from "../../assets/svg/emptyDataTable";
 interface TableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
@@ -96,6 +97,7 @@ export default function TableComp<TData, TValue>({
     content: () => tableRef.current,
     pageStyle: pageStyle,
   });
+
   return (
     <>
       <div className=" w-full overflow-x-auto my-6">
@@ -129,22 +131,7 @@ export default function TableComp<TData, TValue>({
                 onFilterChange={handleFilterChange}
               />
               <div className="h-[33px] w-[2px] bg-[#2e2e2e]"></div>
-              {/* <Button
-                customClassName="py-[6px] px-3"
-                size="sm"
-                fontWeight={"regular"}
-                fit
-              >
-                CSV
-              </Button> */}
-              {/* <Button
-                customClassName="py-[6px] px-3"
-                size="sm"
-                fontWeight={"regular"}  
-                fit
-              >
-                Excel
-              </Button> */}
+
               <Button
                 customClassName="py-[6px] px-3"
                 size="sm"
@@ -179,25 +166,59 @@ export default function TableComp<TData, TValue>({
               </tr>
             ))}
           </thead>
+
           <tbody className="w-full">
-            {table.getRowModel().rows.map((row) => (
-              <tr
-                className="bg-white [&:not(last_of_type)]:border-b"
-                key={row.id}
-              >
-                {row.getVisibleCells().map((cell) => (
-                  <td
-                    key={cell.id}
-                    className={cn(
-                      "py-4 first-of-type:px-4 last-of-type:px-4 pr-4 "
-                    )}
-                  >
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </td>
-                ))}
+            {table.getRowModel().rows.length > 0 ? (
+              table.getRowModel().rows.map((row) => (
+                <tr
+                  className="bg-white [&:not(last_of_type)]:border-b"
+                  key={row.id}
+                >
+                  {row.getVisibleCells().map((cell) => (
+                    <td
+                      key={cell.id}
+                      className={cn(
+                        "py-4 first-of-type:px-4 last-of-type:px-4 pr-4 "
+                      )}
+                    >
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext()
+                      )}
+                    </td>
+                  ))}
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td
+                  colSpan={table.getHeaderGroups()[0].headers.length}
+                  className="py-4 px-4"
+                >
+                  <div className="h-[500px] w-full flex items-center justify-center flex-col gap-1 ">
+                    <EmptyDataTable />
+                    <Typography
+                      variant="h3"
+                      color="gray-1"
+                      customClassName="mt-3"
+                    >
+                      Oops
+                    </Typography>
+                    <Typography
+                      variant="body-r"
+                      color="gray-1"
+                      customClassName="max-w-[400px] mt-2"
+                      align="center"
+                    >
+                      Your transaction history is empty. Let's kick things off
+                      with your first transaction!
+                    </Typography>
+                  </div>
+                </td>
               </tr>
-            ))}
+            )}
           </tbody>
+
           <tfoot>
             {table.getFooterGroups().map((footerGroup) => (
               <tr key={footerGroup.id}>
@@ -215,12 +236,13 @@ export default function TableComp<TData, TValue>({
             ))}
           </tfoot>
         </table>
-        {withPagination && metaData && (
+        {withPagination && metaData && table.getRowModel().rows.length > 0 && (
           <div className="my-4 w-4/5 mx-auto">
             <Pagination
               totalPages={metaData?.totalPages}
+              currentPage={currentPage}
               handlePageClick={({ selected }) =>
-                setCurrentPage && setCurrentPage(selected + 1)
+                setCurrentPage && setCurrentPage((prev) => selected + 1)
               }
             />
           </div>
