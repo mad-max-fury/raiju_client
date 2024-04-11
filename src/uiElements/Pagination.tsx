@@ -4,9 +4,11 @@ import ReactPaginate from "react-paginate";
 const Pagination = ({
   handlePageClick,
   hideNextPrevText = false,
+  totalPages,
 }: {
   handlePageClick: (x: { selected: number }) => void;
   hideNextPrevText?: boolean;
+  totalPages: number;
 }) => {
   return (
     <nav className="">
@@ -15,7 +17,7 @@ const Pagination = ({
         nextLabel={<span className=" items-center gap-2 hidden"></span>}
         onPageChange={handlePageClick}
         pageRangeDisplayed={3}
-        pageCount={12}
+        pageCount={totalPages}
         previousLabel={<span className=" items-center gap-2 hidden"></span>}
         renderOnZeroPageCount={null}
         className="flex items-center justify-center gap-2 px-4 sm:px-0 max-w-screen-sm mx-auto"

@@ -17,7 +17,6 @@ const ProtectedAuthLayout: React.FC<ProtectedAuthLayoutProps> = ({
   if (isLoggedIn && token && user) {
     return <Navigate to={ApplicationRoutes.DASHBOARD_HOME} replace />;
   }
-
   return <>{children}</>;
 };
 

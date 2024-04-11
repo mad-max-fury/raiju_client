@@ -32,12 +32,12 @@ const Menus = [
     icon: <TransfersIcon />,
     isExternal: false,
   },
-  {
-    title: "Analytics",
-    path: "/dashboard/analytics",
-    icon: <BarsIcon />,
-    isExternal: false,
-  },
+  // {
+  //   title: "Analytics",
+  //   path: "/dashboard/analytics",
+  //   icon: <BarsIcon />,
+  //   isExternal: false,
+  // },
   {
     title: "Generate API",
     path: "/dashboard/generate_api",
@@ -96,7 +96,7 @@ const SideBar = () => {
         <Tooltip id="EXPAND-BTN" place="right" />
       </div>
       <ul className="pt-6 flex gap-2 flex-col">
-        {Menus.slice(0, 4).map((menu, index) => (
+        {Menus.slice(0, 3).map((menu, index) => (
           <li key={index}>
             <SideNavLink
               {...menu}
@@ -112,7 +112,7 @@ const SideBar = () => {
         <li className="w-full px-5 my-6">
           <div className="w-full h-[1px] bg-[#0D163A]  mx-auto"></div>
         </li>
-        {Menus.slice(4).map((menu, index) => (
+        {Menus.slice(3).map((menu, index) => (
           <li key={index}>
             <SideNavLink
               {...menu}

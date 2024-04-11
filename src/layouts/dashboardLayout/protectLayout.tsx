@@ -12,7 +12,6 @@ const ProtectedLayout: React.FC<ProtectedLayoutProps> = ({ children }) => {
   const isLoggedIn = useSelector(getIsLoggedIn);
   const token = useSelector(getToken);
   const user = useSelector(getUser);
-  console.log(user);
 
   if (!isLoggedIn && !token && user === null) {
     return <Navigate to={ApplicationRoutes.LOGIN} replace />;

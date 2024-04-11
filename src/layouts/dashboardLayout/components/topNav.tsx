@@ -10,6 +10,7 @@ import { Button } from "../../../uiElements/button";
 import { getUser, logoutUser } from "../../../app/slices/authsplice";
 import { useDispatch, useSelector } from "react-redux";
 import GreetingComponent from "./greeatings";
+import { generateColors } from "../../../utils/helpers";
 
 const TopNav = () => {
   const [show, setShow] = useState(false);
@@ -61,7 +62,7 @@ const UserProfileDropdown = () => {
   const [showDropDown, setShowDropDown] = useState(false);
   const user = useSelector(getUser);
   const dispatch = useDispatch();
-
+  const { color, background } = generateColors();
   return (
     <div className="relative ">
       <button
@@ -69,7 +70,12 @@ const UserProfileDropdown = () => {
         onBlur={() => setShowDropDown(false)}
         className="w-fit flex gap-1 justify-center"
       >
-        <div className="w-[40px] h-[40px] rounded-full bg-gray-400"></div>
+        <div
+          className=" h-[40px] w-[40px] uppercase flex items-center justify-center font-bold  text-center rounded-full"
+          style={{ background, color, textShadow: "0px 0px 1px #000" }}
+        >
+          <span> {user?.businessName.slice(0, 2)}</span>
+        </div>
         <div className=" mxs:hidden flex flex-col justify-center my-auto ">
           <Typography variant="body-s" color="gray-1">
             {user?.businessName}

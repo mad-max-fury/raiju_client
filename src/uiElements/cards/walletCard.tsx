@@ -7,9 +7,11 @@ import EyeOpenIcon from "../../assets/svg/eyeOpenIcon";
 import { Tooltip } from "../tooltip";
 import { useState } from "react";
 
-type Props = {};
+type Props = {
+  balance: number;
+};
 
-const WalletCard = (props: Props) => {
+const WalletCard = ({ balance }: Props) => {
   const [showBalance, setShowBalance] = useState(false);
   return (
     <div className=" w-[334px] h-[234px] flex flex-col justify-between  bg-[#1B1B1E] rounded-lg">
@@ -54,7 +56,7 @@ const WalletCard = (props: Props) => {
         </div>
         <Typography variant={"h5"} color="white">
           {!showBalance
-            ? formatCurrency(21497965.0)
+            ? formatCurrency(balance ?? 0)
             : "*************************"}
         </Typography>
       </div>

@@ -1,14 +1,49 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Typography } from "../../../uiElements/typography";
 import { Button } from "../../../uiElements/button";
 import { emptyApi } from "../../../assets/images";
 import { Input } from "../../../uiElements/input";
+import {
+  useCreateApiKeyMutation,
+  useGetApiKeyQuery,
+} from "../../../app/slices/apiKeys";
+import PageLoader from "../../../uiElements/pageLoader";
+import Modal from "../../../uiElements/Modal";
 
 const GenerateApi = () => {
-  const [isApiKey, setIsApiKey] = useState(false);
+  const [showApiSecret, setShowApiSecret] = useState(false);
+  const { data, isFetching, isError } = useGetApiKeyQuery(undefined, {
+    refetchOnFocus: true,
+    refetchOnMountOrArgChange: true,
+    refetchOnReconnect: true,
+  });
+  const [createApiKey, { data: apiToken, isLoading, isSuccess: createdKey }] =
+    useCreateApiKeyMutation();
+
+  useEffect(() => {
+    if (createdKey) {
+      setShowApiSecret(true);
+    } else {
+      setShowApiSecret(false);
+    }
+  }, [createdKey]);
+
+  if (isFetching && !createdKey) {
+    return (
+      <div className="w-full h-screen">
+        <PageLoader />
+      </div>
+    );
+  }
+  if (isError) {
+    return <div>Error...</div>;
+  }
+
+  const env = process.env.NODE_ENV === "production" ? "live" : "test";
+
   return (
     <div className="w-full min-h-[calc(100vh_-_120px)] bg-white my-[30px] pt-12">
-      {isApiKey ? (
+      {data?.data?.publicKey !== " " ? (
         <div className="flex flex-col my-auto gap-6 h-fit mt-8 max-w-[600px] mx-auto px-6">
           <Typography variant="h3" customClassName="text-center" color="gray-1">
             API Tokens
@@ -20,7 +55,7 @@ const GenerateApi = () => {
             type={"text"}
             variant="plain"
             disabled
-            value={"ETRLC 15B26GSD9T362BGC092A3FGD9"}
+            value={data?.data?.publicKey}
             icon2={
               <button className="cursor-pointer flex gap-1 bg-white px-4 items-center">
                 <span>
@@ -46,7 +81,7 @@ const GenerateApi = () => {
             label="Secret API key"
             placeholder="Enter your address"
             type={"password"}
-            value={"ETRLC 15B26GSD9T362BGC092A3FGD9"}
+            value={"********************************"}
             disabled
             variant="plain"
           />
@@ -54,15 +89,70 @@ const GenerateApi = () => {
             customClassName="mt-4 max-w-[318px] mx-auto"
             name="Submit"
             size="medium"
-            value={"Login"}
-            loading={false}
-            onClick={() => setIsApiKey(!isApiKey)}
+            value={"reset api key"}
+            loading={isLoading}
+            onClick={() => createApiKey({ env })}
           >
             Reset API Key
           </Button>
         </div>
       ) : (
-        <EmptyKeyState btnOnClick={() => setIsApiKey(!isApiKey)} />
+        <EmptyKeyState
+          btnOnClick={() => createApiKey({ env })}
+          loading={isLoading}
+        />
+      )}
+      {apiToken?.data?.secretKey && (
+        <Modal
+          open={showApiSecret}
+          setOpen={setShowApiSecret}
+          size="lg"
+          customClassName="max-w-[768px]"
+        >
+          <div className="flex flex-col items-center justify-center py-8 w-full border border-red-600 border-solid">
+            <Typography
+              variant="h6"
+              customClassName="text-center"
+              color="gray-1"
+            >
+              API Key Created
+            </Typography>
+            <div className="flex flex-col items-center justify-center">
+              <Typography
+                variant="caption-s"
+                customClassName="text-center text-red-600 mt-3 "
+              >
+                <b> For Security reasons. we cannot show it again.</b>
+              </Typography>
+              <Typography
+                variant="caption-s"
+                customClassName="text-center mt-2 mb-4 "
+              >
+                Please copy this key and save it somewhere safe.
+              </Typography>
+              <Input
+                name="address"
+                label="Secret API key"
+                placeholder="Enter your address"
+                type={"text"}
+                value={apiToken?.data?.secretKey}
+                disabled
+                variant="plain"
+                customClassName="w-full "
+              />
+              <Button
+                customClassName="mt-6 mx-auto"
+                name="Submit"
+                size="sm"
+                value={"Generate API Key"}
+                loading={isLoading}
+                fit
+              >
+                Copy API Key
+              </Button>
+            </div>
+          </div>
+        </Modal>
       )}
     </div>
   );
@@ -70,7 +160,13 @@ const GenerateApi = () => {
 
 export default GenerateApi;
 
-const EmptyKeyState = ({ btnOnClick }: { btnOnClick: () => void }) => {
+const EmptyKeyState = ({
+  btnOnClick,
+  loading,
+}: {
+  btnOnClick: () => void;
+  loading: boolean;
+}) => {
   return (
     <div className="w-full  flex flex-col items-center py-[50px] px-6 mt-8 ">
       <div className="w-full max-w-sm aspect-square">
@@ -96,8 +192,8 @@ const EmptyKeyState = ({ btnOnClick }: { btnOnClick: () => void }) => {
           customClassName="mt-4 max-w-[318px] mx-auto"
           name="Submit"
           size="medium"
-          value={"Login"}
-          loading={false}
+          value={"Craete api key"}
+          loading={loading}
           onClick={btnOnClick}
         >
           Generate API

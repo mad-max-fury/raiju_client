@@ -49,7 +49,7 @@ const dashboardRoutes = [
         index: false,
         path: "/dashboard/transactions",
       },
-      { element: <Analytics />, index: true, path: "/dashboard/analytics" },
+      // { element: <Analytics />, index: true, path: "/dashboard/analytics" },
       {
         element: <GenerateApi />,
         index: true,

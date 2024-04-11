@@ -20,6 +20,9 @@ const baseQuery = fetchBaseQuery({
 
 export const apiSlice = createApi({
   baseQuery,
-  tagTypes: ["Transaction", "User"],
+  tagTypes: ["Transaction", "User", "Key"],
+  refetchOnFocus: true,
+  refetchOnMountOrArgChange: true,
+  refetchOnReconnect: true,
   endpoints: (builder) => ({}),
 });

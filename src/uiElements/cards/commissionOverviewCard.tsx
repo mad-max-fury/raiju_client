@@ -2,20 +2,20 @@ import { Typography } from "../typography";
 import { formatCurrency } from "../../utils/helpers";
 
 import { Button } from "../button";
-import ArrowBehaviourIndicator from "./components/arrowBehavourIndicator";
-import SelectComp from "../select";
 import { walletNoMarkIcon } from "../../assets/images";
 import Modal from "../Modal";
 import { useState } from "react";
 import { Input } from "../input";
 import cn from "../../utils/common";
 
-type Props = {};
+type Props = {
+  balance: number;
+};
 
-const CommissionOverviewCard = (props: Props) => {
+const CommissionOverviewCard = ({ balance }: Props) => {
   const [showLiquidateModal, setShowLiquidateModal] = useState(false);
   const [selectedpercent, setSelectedPercent] = useState<number>(0);
-  const maxBalance = 21497965;
+  const maxBalance = balance ?? 0;
   const minBalance = 0.0;
   const withdrawAmountPercent = [25, 50, 75, 100];
   const onLiquidate = () => {};
@@ -34,24 +34,11 @@ const CommissionOverviewCard = (props: Props) => {
               Commission
             </Typography>
           </div>
-          <div className="[&>*]:h-[40px] relative h-[45px]">
-            <SelectComp
-              label=""
-              name="product"
-              id="product"
-              options={[
-                { value: "monthly", label: "Monthly" },
-                { value: "daily", label: "Daily" },
-                { value: "weekly", label: "Weekly" },
-              ]}
-            />
-          </div>
         </div>
         <div>
           <Typography variant={"h5"} color="gray-1">
-            {formatCurrency(21497965.0)}
+            {formatCurrency(balance)}
           </Typography>
-          <ArrowBehaviourIndicator remark={"since last month"} percent={15} />
         </div>
       </div>
       <div className="w-full flex pt-3 p-4">
@@ -98,15 +85,12 @@ const CommissionOverviewCard = (props: Props) => {
                 <div className="w-fit flex gap-2 items-center self-end">
                   {withdrawAmountPercent.map((amount) => (
                     <Button
-                      variant={"outlined"}
+                      variant={
+                        selectedpercent === amount ? "filled" : "outlined"
+                      }
                       size={"sm"}
                       fit
-                      customClassName={cn(
-                        "p-2 !ring-0 text-xs text-[#2e2e2e]",
-                        selectedpercent === amount
-                          ? "!bg-[#2e2e2e] text-white"
-                          : ""
-                      )}
+                      customClassName={cn("p-2 !ring-0 text-xs text-[#2e2e2e]")}
                       onClick={() => setSelectedPercent(amount)}
                     >
                       <div className="">{amount}%</div>
